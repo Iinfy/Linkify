@@ -1,2 +1,4 @@
 .env
 .env.dev
+/caddy/caddy_*
+web/script/config.js
