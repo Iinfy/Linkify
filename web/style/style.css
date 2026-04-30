@@ -34,7 +34,7 @@ img {
     
 }
 
-.link-input-wrapper button {
+.link-input-wrapper .short-btn {
     z-index: 2;
     position: absolute;
     top: 4%;
@@ -47,3 +47,4 @@ img {
     border-radius: 13px 13px 13px 13px ;
     color: white;
 }
+
