@@ -1,8 +1,8 @@
 package main
 
 import (
-	"PastebinBack/app/db"
-	"PastebinBack/app/handlers"
+	"linkify/app/db"
+	"linkify/app/handlers"
 	"log"
 	"os"
 
