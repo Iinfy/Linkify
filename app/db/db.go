@@ -2,11 +2,13 @@ package db
 
 import (
 	"context"
+	"errors"
 	"fmt"
 	"log"
 	"time"
 
 	"github.com/jackc/pgx/v5"
+	"github.com/jackc/pgx/v5/pgconn"
 )
 
 var conn *pgx.Conn
@@ -28,14 +30,19 @@ func PrepareDatabase() {
 		hash text PRIMARY KEY,
 		url TEXT NOT NULL UNIQUE)`)
 	if err != nil {
-		log.Fatal(err)
+		fmt.Println(err)
 	}
 }
 
 func AddUrl(url string, hash string) {
 	_, err := conn.Exec(context.Background(), `INSERT INTO urls VALUES ($1,$2)`, hash, url)
 	if err != nil {
-		log.Fatal(err)
+		var pgErr *pgconn.PgError
+		if errors.As(err, &pgErr) {
+			if pgErr.Code != "23505" {
+				fmt.Println("unique violation")
+			}
+		}
 	}
 }
 
@@ -43,7 +50,7 @@ func GetUrlByHash(hash string) string {
 	var url string
 	err := conn.QueryRow(context.Background(), "SELECT url FROM urls WHERE hash = $1", hash).Scan(&url)
 	if err != nil {
-		log.Fatal()
+		fmt.Println(err)
 		return ""
 	}
 	return url
