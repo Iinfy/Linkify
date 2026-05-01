@@ -24,6 +24,15 @@ func goToLink(c *gin.Context) {
 	hash := c.Param("hash")
 	url := db.GetUrlByHash(hash)
 
-	db.RecordClick(hash)
+	userAgent := c.GetHeader("User-Agent")
+	db.RecordClick(hash, userAgent)
 	c.Redirect(http.StatusFound, url)
+}
+
+func getLinkStats(c *gin.Context) {
+	hash := c.Param("hash")
+	click_count := db.GetClicksByHash(hash)
+	url := db.GetUrlByHash(hash)
+
+	c.JSON(200, gin.H{"click_count": click_count, "url": url})
 }

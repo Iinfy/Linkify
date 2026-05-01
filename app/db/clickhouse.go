@@ -32,7 +32,8 @@ func ConnectClickhouse(url string) {
 func PrepareClickhouse() {
 	err := ch_conn.Exec(context.Background(), `CREATE TABLE IF NOT EXISTS stats(
 		hash String,
-	 	clicked_at DateTime64(3)
+	 	clicked_at DateTime64(3),
+		user_agent String
 		) ENGINE = MergeTree()
 		ORDER BY clicked_at`)
 	if err != nil {
@@ -41,14 +42,28 @@ func PrepareClickhouse() {
 
 }
 
-func RecordClick(hash string) {
-	batch, err := ch_conn.PrepareBatch(context.Background(), "INSERT INTO stats(hash, clicked_at)")
+func RecordClick(hash string, userAgent string) {
+	batch, err := ch_conn.PrepareBatch(context.Background(), "INSERT INTO stats(hash, clicked_at, user_agent)")
 	if err != nil {
 		fmt.Println("prepare batch: ", err)
 	}
-	if err = batch.Append(hash, time.Now()); err != nil {
+	if err = batch.Append(hash, time.Now(), userAgent); err != nil {
 		fmt.Println("batch append: ", err)
 	}
 
 	batch.Send()
+}
+
+func GetClicksByHash(hash string) uint64 {
+	row := ch_conn.QueryRow(context.Background(),
+		`SELECT
+		count() as click_count
+		FROM stats
+		WHERE hash = ?`, hash)
+	var click_count uint64
+	if err := row.Scan(&click_count); err != nil {
+		fmt.Println("row scan error")
+		return 0
+	}
+	return click_count
 }
