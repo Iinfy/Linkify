@@ -1,50 +1,92 @@
 * {
-    font-family: "BBH Bartle", sans-serif;
+    font-family: "Nunito Sans", sans-serif;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #323232;
+    margin: 0;
 }
 
 .page-wrapper {
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 70vh;
-    
-}
-
-img {
-    padding: 10px 15px;
+    height: 100vh;
 }
 
 .link-input-wrapper {
     position: relative;
-    display: inline-block;
     width: 100%;
-    z-index: 2;
+    max-width: 500px;
 }
 
 .link-input-wrapper input {
-   
-    width: 100%;
-    padding-right: 90px;
-    box-sizing: border-box;
-    height: 48px;
-    border: 5px solid #FFA239;
-    border-radius: 16px;
-    padding: 10px 15px;
+    width: 500px;
+    height: 60px;
+    background-color: #212121;
+    border: 1px solid #474745;
+    border-radius: 20px;
+    padding: 0 120px 0 20px;
+    font-size: 17px;
+    color: #e0e0dd;
     outline: none;
-    
+}
+
+.link-input-wrapper input::placeholder {
+    color: #5F5F5F;
+    font-size: 17px;
 }
 
 .link-input-wrapper .short-btn {
-    z-index: 2;
     position: absolute;
-    top: 4%;
-    right: 2px;
-    width: 150px;
+    top: 50%;
+    right: 8px;
+    transform: translateY(-50%);
     height: 44px;
-    padding: 0 20px;
-    border: none;
-    background: red;
-    border-radius: 13px 13px 13px 13px ;
-    color: white;
+    padding: 0 24px;
+    background-color: #383837;
+    color: #e0e0dd;
+    border: 1px solid #5c5c5a;
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: all 0.4s ease;
 }
 
+.link-input-wrapper .short-btn:hover {
+    
+    background-color: #323232;
+    transition: all 0.4s ease;
+}
+
+.logo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: white;
+    margin-bottom: 20px;
+}
+
+.logo .title {
+    font-size: 72px;
+    font-weight: 700;
+    line-height: 1;
+    margin: 0;
+}
+
+.logo .subtitle {
+   
+    color: white;
+    font-size: 20px;
+    font-weight: 600;
+    padding: 4px 12px;
+    border-radius: 4px;
+    margin-top: 0px;
+    letter-spacing: 0.5px;
+}

@@ -4,9 +4,7 @@ const shortBtn = document.getElementById("shortBtn");
 shortBtn.addEventListener("click", async (e) => {
   e.preventDefault();
   const url = linkInput.value.trim();
-  shortBtn.textContent = "shorted";
-  shortBtn.style.backgroundColor = "green";
-
+  const base_url = window.location.origin
   try {
     const response = await fetch(`/slink`, {
       method: "POST",
@@ -17,6 +15,15 @@ shortBtn.addEventListener("click", async (e) => {
     });
 
     const data = await response.json();
+
+    if (!response.ok) {
+      return;
+    }
+
+    shortBtn.textContent = "shorted";
+    shortBtn.style.backgroundColor = "green";
+
+    linkInput.value = `${base_url}/s/${data.url}`
   } catch (error) {
     console.error(error);
   }
