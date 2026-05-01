@@ -19,6 +19,40 @@ services:
     networks:
       - "back"
 
+  clickhouse:
+    container_name: clickhouse
+    image: clickhouse/clickhouse-server:25.5-alpine
+    restart: unless-stopped
+    environment:
+      - CLICKHOUSE_USER=infydev
+      - CLICKHOUSE_PASSWORD=infy.dev
+      - CLICKHOUSE_DB=linkify
+      - CLICKHOUSE_DEFAULT_ACCESS_MANAGEMENT=1
+    volumes:
+      - clickhouse-data:/var/lib/clickhouse
+    ports:
+      - "8123:8123"
+      - "9000:9000"
+    networks:
+      - back
+    ulimits:
+      nofile: 262144
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "clickhouse-client",
+          "--user",
+          "infydev",
+          "--password",
+          "infy.dev",
+          "--query",
+          "SELECT 1",
+        ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
   back:
     container_name: back
     restart: unless-stopped
@@ -31,9 +65,11 @@ services:
     depends_on:
       postgres:
         condition: service_healthy
+      clickhouse:
+        condition: service_healthy
     networks:
-      - "back"
-      - "web"
+      - back
+      - web
     env_file:
       - .env
 
@@ -48,8 +84,23 @@ services:
     networks:
       - "web"
 
+  caddy:
+    image: caddy:2-alpine
+    container_name: caddy
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+      - "443:443/udp"
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+    networks:
+      - web
+      - back
+
 volumes:
   pgdata:
+  clickhouse-data:
 
 networks:
   web:
