@@ -24,5 +24,6 @@ func goToLink(c *gin.Context) {
 	hash := c.Param("hash")
 	url := db.GetUrlByHash(hash)
 
+	db.RecordClick(hash)
 	c.Redirect(http.StatusFound, url)
 }

@@ -16,5 +16,7 @@ func main() {
 	}
 	db.ConnectDatabase(os.Getenv("POSTGRES_URL"))
 	db.PrepareDatabase()
+	db.ConnectClickhouse(os.Getenv("CLICKHOUSE_URL"))
+	db.PrepareClickhouse()
 	handlers.StartServer(":" + os.Getenv("PORT"))
 }
