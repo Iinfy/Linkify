@@ -16,15 +16,43 @@ services:
       interval: 10s
       timeout: 5s
       retries: 5
+    networks:
+      - "back"
+
+  back:
+    container_name: back
+    restart: unless-stopped
+    build:
+      context: .
+      dockerfile: app/Dockerfile
+      network: host
+    ports:
+      - "8090:8090"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - "back"
+      - "web"
+    env_file:
+      - .env
 
   web:
     container_name: web
     restart: unless-stopped
     build:
       context: .
-      dockerfile: web/dockerfile
+      dockerfile: web/Dockerfile
     ports:
       - "8080:8080"
+    networks:
+      - "web"
 
 volumes:
   pgdata:
+
+networks:
+  web:
+    driver: bridge
+  back:
+    driver: bridge

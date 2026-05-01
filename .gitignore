@@ -2,4 +2,4 @@
 .env.dev
 *test.go
 /caddy/caddy_*
-web/script/config.js
+*/config.js

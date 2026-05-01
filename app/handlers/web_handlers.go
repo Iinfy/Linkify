@@ -1,10 +1,9 @@
 package handlers
 
 import (
-	"fmt"
-	"linkify/app/db"
-	"linkify/app/models"
-	"linkify/app/utils"
+	"linkify/db"
+	"linkify/models"
+	"linkify/utils"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -16,8 +15,6 @@ func addLink(c *gin.Context) {
 		c.JSON(400, gin.H{"error": err.Error()})
 		return
 	}
-	fmt.Println("ZAPROS U NAS")
-
 	urlHash := utils.GetURLHash(link.Url)
 	db.AddUrl(link.Url, urlHash)
 	c.JSON(200, gin.H{"url": urlHash})
