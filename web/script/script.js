@@ -50,9 +50,10 @@ function addToRecentLink(base_url, shortUrl) {
   item.style.transition = "all 0.3s ease";
 
   item.innerHTML = `
-
-    <a href="${fullUrl}" class="url" target="_blank" rel="noopener">${fullUrl}</a>
-    <p class="Original-url">${linkInput.value}<p>
+    <div class="text-wrapper">
+      <a href="${fullUrl}" class="url" target="_blank" rel="noopener">${fullUrl}</a>
+      <p class="Original-url">${linkInput.value}</p>
+    </div>
     <button class="copy-btn">Copy</button>
   `;
 
