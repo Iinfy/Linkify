@@ -3,6 +3,7 @@ package handlers
 import (
 	"fmt"
 	"os"
+	"strconv"
 	"time"
 
 	"github.com/gin-contrib/cors"
@@ -12,7 +13,7 @@ import (
 var router = gin.Default()
 
 func StartServer(serverPort string) {
-	// Удалите cors.Default() — используем только одну настройку
+	rateLimiter := NewRateLimiter(parseRateLimit(os.Getenv("RATE_LIMIT")), time.Minute)
 
 	router.Use(cors.New(cors.Config{
 		AllowOrigins: []string{
@@ -29,11 +30,23 @@ func StartServer(serverPort string) {
 		c.Next()
 	})
 
+	router.Use(rateLimiter.Middleware())
+
 	router.POST("/slink", addLink)
 	router.GET("/s/:hash", goToLink)
 	router.GET("/short/:hash", getLinkStats)
-	// router.GET("/qr", createQR)
 
 	fmt.Println("Server started")
 	router.Run(serverPort)
+}
+
+func parseRateLimit(s string) int {
+	if s == "" {
+		return 100
+	}
+	n, err := strconv.Atoi(s)
+	if err != nil || n <= 0 {
+		return 100
+	}
+	return n
 }
