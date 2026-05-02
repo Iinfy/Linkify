@@ -6,6 +6,7 @@ import (
 	"linkify/utils"
 	"net/http"
 	"strconv"
+	"strings"
 
 	"github.com/gin-gonic/gin"
 )
@@ -13,7 +14,15 @@ import (
 func addLink(c *gin.Context) {
 	var link models.AddLink
 	if err := c.ShouldBindJSON(&link); err != nil {
-		c.JSON(400, gin.H{"error": err.Error()})
+		c.JSON(400, gin.H{"error": "internal server error"})
+		return
+	}
+	if len(link.Url) > 2048 {
+		c.JSON(422, gin.H{"error": "URL too long"})
+		return
+	}
+	if !strings.HasPrefix(link.Url, "http://") && !strings.HasPrefix(link.Url, "https://") {
+		c.JSON(422, gin.H{"error": "only http/https allowed"})
 		return
 	}
 	urlHash := utils.GetURLHash(link.Url)
@@ -24,6 +33,10 @@ func addLink(c *gin.Context) {
 func goToLink(c *gin.Context) {
 	hash := c.Param("hash")
 	url := db.GetUrlByHash(hash)
+	if url == "" {
+		c.JSON(http.StatusNotFound, gin.H{"error": "not found"})
+		return
+	}
 
 	userAgent := c.GetHeader("User-Agent")
 	db.RecordClick(hash, userAgent)
@@ -42,6 +55,7 @@ func createQR(c *gin.Context) {
 	url := c.Query("text")
 	if url == "" {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "missing text"})
+		return
 	}
 	png, err := utils.GenerateQR(url)
 	if err != nil {

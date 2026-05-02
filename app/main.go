@@ -14,6 +14,10 @@ func main() {
 	if err != nil {
 		fmt.Println(".env load failed")
 	}
+	corsHost := os.Getenv("CORS_HOST")
+	if corsHost == "" {
+		panic("CORS_HOST is not set")
+	}
 	db.ConnectDatabase(os.Getenv("POSTGRES_URL"))
 	db.PrepareDatabase()
 	db.ConnectClickhouse(os.Getenv("CLICKHOUSE_URL"))

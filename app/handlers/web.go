@@ -24,10 +24,15 @@ func StartServer(serverPort string) {
 		MaxAge:           12 * time.Hour,
 	}))
 
+	router.Use(func(c *gin.Context) {
+		c.Header("Referrer-Policy", "no-referrer")
+		c.Next()
+	})
+
 	router.POST("/slink", addLink)
 	router.GET("/s/:hash", goToLink)
 	router.GET("/short/:hash", getLinkStats)
-	router.GET("/qr", createQR)
+	// router.GET("/qr", createQR)
 
 	fmt.Println("Server started")
 	router.Run(serverPort)

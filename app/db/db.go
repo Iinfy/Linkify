@@ -39,10 +39,11 @@ func AddUrl(url string, hash string) {
 	if err != nil {
 		var pgErr *pgconn.PgError
 		if errors.As(err, &pgErr) {
-			if pgErr.Code != "23505" {
+			if pgErr.Code == "23505" {
 				fmt.Println("unique violation")
 			}
 		}
+
 	}
 }
 
