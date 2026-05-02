@@ -21,9 +21,13 @@ shortBtn.addEventListener("click", async (e) => {
       return;
     }
 
+
+    if (!linkInput.value.startsWith("https") && !linkInput.value.startsWith("http")) {
+      alert("Link URL is invalid.");
+      return
+    }
     shortBtn.textContent = "shorted";
     shortBtn.style.backgroundColor = "green";
-
     addToRecentLink(base_url, data.url);
   } catch (error) {
     console.error(error);
@@ -46,7 +50,9 @@ function addToRecentLink(base_url, shortUrl) {
   item.style.transition = "all 0.3s ease";
 
   item.innerHTML = `
+
     <a href="${fullUrl}" class="url" target="_blank" rel="noopener">${fullUrl}</a>
+    <p class="Original-url">${linkInput.value}<p>
     <button class="copy-btn">Copy</button>
   `;
 
