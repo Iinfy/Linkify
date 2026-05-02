@@ -1,50 +1,196 @@
 * {
-    font-family: "BBH Bartle", sans-serif;
+    font-family: "Nunito Sans", sans-serif;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #323232;
+    margin: 0;
+    min-height: 100vh;
 }
 
 .page-wrapper {
     display: flex;
-    align-items: center;
     justify-content: center;
-    height: 70vh;
-    
+    align-items: center;
+    min-height: 100vh;
+    padding: 40px 20px;
+    position: relative;
 }
 
-img {
-    padding: 10px 15px;
+.main__section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    max-width: 500px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -110%);
 }
 
 .link-input-wrapper {
     position: relative;
-    display: inline-block;
     width: 100%;
-    z-index: 2;
+    max-width: 500px;
 }
 
 .link-input-wrapper input {
-   
     width: 100%;
-    padding-right: 90px;
-    box-sizing: border-box;
-    height: 48px;
-    border: 5px solid #FFA239;
-    border-radius: 16px;
-    padding: 10px 15px;
+    height: 60px;
+    background-color: #212121;
+    border: 1px solid #474745;
+    border-radius: 20px;
+    padding: 0 120px 0 20px;
+    font-size: 17px;
+    color: #e0e0dd;
     outline: none;
-    
+}
+
+.link-input-wrapper input::placeholder {
+    color: #5F5F5F;
+    font-size: 17px;
 }
 
 .link-input-wrapper .short-btn {
-    z-index: 2;
     position: absolute;
-    top: 4%;
-    right: 2px;
-    width: 150px;
+    top: 50%;
+    right: 8px;
+    transform: translateY(-50%);
     height: 44px;
-    padding: 0 20px;
-    border: none;
-    background: red;
-    border-radius: 13px 13px 13px 13px ;
-    color: white;
+    padding: 0 24px;
+    background-color: #383837;
+    color: #e0e0dd;
+    border: 1px solid #5c5c5a;
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: all 0.4s ease;
 }
 
+.link-input-wrapper .short-btn:hover {
+    background-color: #323232;
+    transition: all 0.4s ease;
+}
+
+.logo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: white;
+    margin-bottom: 20px;
+}
+
+.logo .title {
+    font-size: 72px;
+    font-weight: 700;
+    line-height: 1;
+    margin: 0;
+}
+
+.logo .subtitle {
+    color: white;
+    font-size: 20px;
+    font-weight: 600;
+    padding: 4px 12px;
+    border-radius: 4px;
+    margin-top: 0px;
+    letter-spacing: 0.5px;
+}
+
+.recent-titles {
+    color: white;
+    font-size: 15px;
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+
+.recent-item {
+    position: relative;
+    width: 100%;
+    height: 60px;
+    background-color: #212121;
+    border: 1px solid #474745;
+    border-radius: 20px;
+    padding: 0 120px 0 20px;
+    font-size: 17px;
+    color: #e0e0dd;
+    outline: none;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    overflow: hidden;
+    flex-shrink: 0;
+}
+
+.copy-btn {
+    position: absolute;
+    top: 50%;
+    right: 8px;
+    transform: translateY(-50%);
+    height: 44px;
+    padding: 0 24px;
+    background-color: #383837;
+    color: #e0e0dd;
+    border: 1px solid #5c5c5a;
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: all 0.4s ease;
+}
+
+.recent-links {
+    position: absolute;
+    top: calc(100% + 8px);
+    left: 0;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.recent-item .url {
+    color: #e0e0dd;
+    font-size: 17px;
+    text-decoration: none;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    min-width: 0;
+    position: absolute;
+    top: 50%;
+    left: 20px;
+    transform: translateY(-14px);
+}
+
+.recent-item .Original-url {
+    color: #5F5F5F;
+    font-size: 13px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 20px;
+    transform: translateY(6px);
+}
+
+.recent-links-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    max-height: 220px;
+    overflow: hidden;
+    width: 100%;
+}

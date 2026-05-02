@@ -8,29 +8,40 @@
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
         <link
-            href="https://fonts.googleapis.com/css2?family=BBH+Bartle&display=swap"
+            href="https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap"
             rel="stylesheet"
         />
     </head>
     <body>
-        <img src="imgs/logo.svg" alt="" />
+        
         <div class="page-wrapper">
             <div class="main__section">
-                <h2>Short your link here</h2>
-
+                
+                <div class="logo">
+                    <h1 class="title">Linkify</h1>
+                    <span class="subtitle">URL Shortener</span>
+                </div>
                 <div class="link-input-wrapper">
                     <input
                         type="text"
                         class="link-input"
                         id="linkInput"
-                        placeholder="Paste link here"
+                        placeholder="https/github.com/iinfy/linkify"
                     />
-                    <button class="short-btn" id="shortBtn">Short</button>
+                    <button class="short-btn" id="shortBtn">Create</button>
+                </div>
+                <div class="recent-links" id="recentLinks">
+                    <p class="recent-titles" id="recentTitles">Recent links</p>
+                    <div class="recent-links-list" id="recentLinksList"></div>
+                </div>
+
+
+
                 </div>
             </div>
         </div>
 
         <script src="script/script.js"></script>
-        <script src="script/config.js"></script>
+
     </body>
 </html>
