@@ -8,5 +8,5 @@ RUN go build -o linkify-back ./main.go
 FROM alpine:latest
 WORKDIR /app
 COPY --from=builder /app/linkify-back .
-EXPOSE 3333
+EXPOSE 8090
 CMD ["./linkify-back"]

@@ -8,7 +8,7 @@ shortBtn.addEventListener("click", async (e) => {
   shortBtn.style.backgroundColor = "green";
 
   try {
-    const response = await fetch(`http://localhost:9090/slink`, {
+    const response = await fetch(`/slink`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

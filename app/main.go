@@ -22,5 +22,5 @@ func main() {
 	db.PrepareDatabase()
 	db.ConnectClickhouse(os.Getenv("CLICKHOUSE_URL"))
 	db.PrepareClickhouse()
-	handlers.StartServer(":" + os.Getenv("PORT"))
+	handlers.StartServer(":8090")
 }

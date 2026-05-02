@@ -4,3 +4,4 @@
 /caddy/caddy_*
 */config.js
 AGENTS.md
+docker-compose.yml
