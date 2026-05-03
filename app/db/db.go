@@ -32,6 +32,13 @@ func PrepareDatabase() {
 	if err != nil {
 		fmt.Println(err)
 	}
+	_, err = conn.Exec(context.Background(), `CREATE TABLE IF NOT EXISTS stats(
+		hash TEXT,
+	 	clicked_at TIMESTAMP(3),
+		user_agent TEXT)`)
+	if err != nil {
+		fmt.Println(err)
+	}
 }
 
 func AddUrl(url string, hash string) {
@@ -55,4 +62,22 @@ func GetUrlByHash(hash string) string {
 		return ""
 	}
 	return url
+}
+
+func RecordClick(hash string, userAgent string) {
+	_, err := conn.Exec(context.Background(), `INSERT INTO stats(hash,clicked_at,user_agent)
+		VALUES ($1,$2,$3)`, hash, time.Now(), userAgent)
+	if err != nil {
+		fmt.Println(err)
+	}
+}
+
+func GetClicksByHash(hash string) int {
+	var clicks int
+	err := conn.QueryRow(context.Background(), "SELECT COUNT(*) FROM stats WHERE hash=$1", hash).Scan(&clicks)
+	if err != nil {
+		fmt.Println(err)
+		return -1
+	}
+	return clicks
 }
