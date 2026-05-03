@@ -1,0 +1,101 @@
+* {
+    font-family: "Nunito Sans", sans-serif;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #323232;
+    margin: 0;
+    min-height: 100vh;
+}
+
+.page-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 80px 20px 40px;
+}
+
+.main__section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    max-width: 500px;
+}
+
+@media (max-width: 480px) {
+    .page-wrapper {
+        padding: 60px 16px 24px;
+    }
+
+    .logo {
+        margin-bottom: 20px;
+    }
+
+    .link-input-wrapper input {
+        height: 52px;
+        border-radius: 16px;
+        padding: 0 90px 0 14px;
+        font-size: 14px;
+    }
+
+    .link-input-wrapper input::placeholder {
+        font-size: 14px;
+    }
+
+    .link-input-wrapper .short-btn {
+        height: 38px;
+        padding: 0 14px;
+        font-size: 13px;
+        right: 6px;
+    }
+
+    .recent-item {
+        height: 52px;
+        border-radius: 16px;
+        padding: 0 72px 0 12px;
+    }
+
+    .recent-item .url {
+        font-size: 12px;
+    }
+
+    .recent-item .original-url {
+        font-size: 10px;
+    }
+
+    .copy-btn {
+        height: 32px;
+        padding: 0 10px;
+        font-size: 11px;
+        right: 6px;
+    }
+
+    .recent-links {
+        margin-top: 20px;
+    }
+
+    .recent-links-list {
+        gap: 10px;
+        max-height: 180px;
+    }
+}
+
+@media (min-width: 481px) and (max-width: 768px) {
+    .page-wrapper {
+        padding: 80px 32px 40px;
+    }
+
+    .main__section {
+        max-width: 480px;
+    }
+}
+
+@media (min-width: 769px) {
+    .page-wrapper {
+        padding: 80px 40px 40px;
+    }
+}
