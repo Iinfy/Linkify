@@ -5,7 +5,6 @@ import (
 	"linkify/models"
 	"linkify/utils"
 	"net/http"
-	"strconv"
 	"strings"
 
 	"github.com/gin-gonic/gin"
@@ -49,20 +48,4 @@ func getLinkStats(c *gin.Context) {
 	url := db.GetUrlByHash(hash)
 
 	c.JSON(200, gin.H{"click_count": click_count, "url": url})
-}
-
-func createQR(c *gin.Context) {
-	url := c.Query("text")
-	if url == "" {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "missing text"})
-		return
-	}
-	png, err := utils.GenerateQR(url)
-	if err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{"error": "internal server error"})
-		return
-	}
-	c.Header("Content-Type", "image/png")
-	c.Header("Content-Length", strconv.Itoa(len(png)))
-	c.Data(http.StatusOK, "image/png", png)
 }
