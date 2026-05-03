@@ -19,40 +19,6 @@ services:
     networks:
       - "back"
 
-  clickhouse:
-    container_name: clickhouse
-    image: clickhouse/clickhouse-server:25.5-alpine
-    restart: unless-stopped
-    environment:
-      - CLICKHOUSE_USER=infydev
-      - CLICKHOUSE_PASSWORD=infy.dev
-      - CLICKHOUSE_DB=linkify
-      - CLICKHOUSE_DEFAULT_ACCESS_MANAGEMENT=1
-    volumes:
-      - clickhouse-data:/var/lib/clickhouse
-    ports:
-      - "8123:8123"
-      - "9000:9000"
-    networks:
-      - back
-    ulimits:
-      nofile: 262144
-    healthcheck:
-      test:
-        [
-          "CMD",
-          "clickhouse-client",
-          "--user",
-          "infydev",
-          "--password",
-          "infy.dev",
-          "--query",
-          "SELECT 1",
-        ]
-      interval: 10s
-      timeout: 5s
-      retries: 5
-
   back:
     container_name: back
     restart: unless-stopped
@@ -64,8 +30,6 @@ services:
       - "8090:8090"
     depends_on:
       postgres:
-        condition: service_healthy
-      clickhouse:
         condition: service_healthy
     networks:
       - back
@@ -79,6 +43,7 @@ services:
     build:
       context: .
       dockerfile: web/Dockerfile
+      network: host
     ports:
       - "8080:8080"
     networks:

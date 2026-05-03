@@ -2,16 +2,25 @@
   <div class="page-wrapper">
     <div class="main__section">
       <AppLogo />
-      <LinkInput />
-      <RecentLinks />
+      <LinkInput @linkCreated="addLink" />
+      <RecentLinks :links="links" />
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
+import type {Link} from '@/types/link.ts'
+import {ref} from 'vue'
 import AppLogo from './components/AppLogo.vue'
 import LinkInput from './components/LinkInput.vue'
 import RecentLinks from './components/RecentLinks.vue'
+const links = ref<Link[]>([] )
+
+
+
+function addLink(link: Link) {
+  links.value.push(link)
+}
 
 </script>
 

@@ -1,13 +1,75 @@
 <template>
   <div class="link-input-wrapper">
     <input
+        ref="linkInput"
         type="text"
         class="link-input"
         placeholder="https://github.com/iinfy/linkify"
     />
-    <button class="short-btn">Create</button>
+    <button ref="shortBtn" class="short-btn" @click="hadleShortener">
+      {{ buttonText }}
+    </button>
   </div>
 </template>
+<script setup lang="ts">
+import {computed, ref} from "vue";
+
+
+  const shortBtn = document.querySelector('.short-btn');
+  const linkInput = ref<HTMLInputElement | null>(null);
+  const base_url = window.location.origin;
+  const buttonText = ref<string>("Create");
+
+
+  const emit = defineEmits(['linkCreated']);
+
+
+
+  const hadleShortener = async () => {
+    let url = ""
+
+    if (linkInput.value) {
+      url = linkInput.value.value.trim()
+
+    }
+    try {
+      const res = await fetch(`/slink`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({url: url})
+
+      })
+
+      const data = await res.json()
+
+      if (!res.ok) {
+        return
+      }
+
+
+      if (!url.startsWith('https://') && !url.startsWith('http://')) {
+        console.log('Url is not https/http')
+      }
+
+      buttonText.value = "Created";
+      // addToRecentLink(base_url, data.url);
+      setTimeout(() => {
+        buttonText.value = "Create";
+      }, 2000 )
+
+      emit("linkCreated", {original: url, short: base_url + "/s/" + data.url})
+
+    } catch (error) {
+      console.error('Error:', error)
+  }
+  }
+
+
+
+</script>
+
 
 <style scoped>
 .link-input-wrapper {

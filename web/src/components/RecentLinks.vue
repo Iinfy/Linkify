@@ -1,13 +1,10 @@
-<script setup>
+<script setup lang="ts">
 import LinkItem from './LinkItem.vue'
-import { ref } from 'vue'
+import {type PropType, ref} from 'vue'
+import type {Link} from '@/types/link.ts'
 
-const links = ref([
-  { id: 1, original: 'https://google.com/', short: 'http://sh.rt/abc' },
-  { id: 2, original: 'https://youtube.com/', short: 'http://sh.rt/xyz' },
-  { id: 3, original: 'https://youtube.com/', short: 'http://sh.rt/xyz' },
+defineProps({links: Array as PropType<Link[]>})
 
-])
 </script>
 
 <template>
@@ -16,7 +13,6 @@ const links = ref([
     <div class="recent-links-list">
       <LinkItem
           v-for="link in links"
-          :key="link.id"
           :original="link.original"
           :short="link.short"
       />
