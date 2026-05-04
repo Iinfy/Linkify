@@ -4,15 +4,26 @@
       <a :href="short" class="url" target="_blank" rel="noopener">{{ short }}</a>
       <p class="original-url">{{ original }}</p>
     </div>
-    <button class="copy-btn">Copy</button>
+    <button class="copy-btn" @click="copyHandle()">Copy</button>
   </div>
 </template>
 
 <script setup lang="ts">
-defineProps({
+const props = defineProps({
   original: String,
   short: String,
 })
+
+const copyHandle = async () => {
+  if (!props.short) return
+
+  try {
+    await navigator.clipboard.writeText(props.short)
+  } catch (e) {
+    console.error(e)
+  }
+}
+
 </script>
 
 <style>

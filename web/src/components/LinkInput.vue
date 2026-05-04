@@ -14,23 +14,16 @@
 <script setup lang="ts">
 import {computed, ref} from "vue";
 
-
   const shortBtn = document.querySelector('.short-btn');
   const linkInput = ref<HTMLInputElement | null>(null);
   const base_url = window.location.origin;
   const buttonText = ref<string>("Create");
 
-
   const emit = defineEmits(['linkCreated']);
-
-
-
   const hadleShortener = async () => {
     let url = ""
-
     if (linkInput.value) {
       url = linkInput.value.value.trim()
-
     }
     try {
       const res = await fetch(`/slink`, {
@@ -39,15 +32,12 @@ import {computed, ref} from "vue";
           "Content-Type": "application/json",
         },
         body: JSON.stringify({url: url})
-
       })
 
       const data = await res.json()
-
       if (!res.ok) {
         return
       }
-
 
       if (!url.startsWith('https://') && !url.startsWith('http://')) {
         console.log('Url is not https/http')
@@ -65,11 +55,7 @@ import {computed, ref} from "vue";
       console.error('Error:', error)
   }
   }
-
-
-
 </script>
-
 
 <style scoped>
 .link-input-wrapper {
