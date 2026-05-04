@@ -1,18 +1,16 @@
 <script setup lang="ts">
-import type {NotificationData} from "@/types/notificationData.ts";
+import { useNotification } from '@/composables/useNotification'
+const { visible, title,subtitle } = useNotification()
 
-const props = defineProps<{
-  data: NotificationData;
-}>()
 </script>
 
 <template>
   <transition name="slide">
-  <div v-if="data.show" class="notif-container">
+  <div v-if="visible" class="notif-container">
     <img src="../assets/icons/check.png" class="check" alt="">
     <div class="text-group">
-      <h2>{{data.title}}</h2>
-      <p>{{data.subtitle}}</p>
+      <h2>{{title}}</h2>
+      <p>{{subtitle}}</p>
     </div>
   </div>
   </transition>
@@ -88,7 +86,7 @@ const props = defineProps<{
 }
 
 .slide-leave-to {
-  transform: translateX(0%);
+  transform: translateX(100%);
 }
 
 </style>
