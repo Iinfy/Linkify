@@ -2,6 +2,9 @@
     handle /s/* {
         reverse_proxy back:8090
     }
+    handle /slink* {
+        reverse_proxy back:8090
+    }
     handle /* {
         reverse_proxy web:8080
     }
