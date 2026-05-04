@@ -5,6 +5,7 @@ import (
 	"linkify/models"
 	"linkify/utils"
 	"net/http"
+	"os"
 	"strings"
 
 	"github.com/gin-gonic/gin"
@@ -16,7 +17,7 @@ func addLink(c *gin.Context) {
 		c.JSON(400, gin.H{"error": "internal server error"})
 		return
 	}
-	if len(link.Url) > 2048 {
+	if len(link.Url) > 1024 {
 		c.JSON(422, gin.H{"error": "URL too long"})
 		return
 	}
@@ -33,7 +34,7 @@ func goToLink(c *gin.Context) {
 	hash := c.Param("hash")
 	url := db.GetUrlByHash(hash)
 	if url == "" {
-		c.JSON(http.StatusNotFound, gin.H{"error": "not found"})
+		c.Redirect(http.StatusMovedPermanently, os.Getenv("CORS_HOST")+"/not_found")
 		return
 	}
 
