@@ -10,8 +10,11 @@
 
 <script setup lang="ts">
 import {ref} from "vue";
+import type {NotificationData} from "@/types/notificationData.ts";
+
 const isSuccess = ref(false)
 const buttonText = ref<string>("Copy");
+const emit = defineEmits(['copied']);
 
 const props = defineProps({
   original: String,
@@ -25,10 +28,12 @@ const copyHandle = async () => {
     await navigator.clipboard.writeText(props.short)
     buttonText.value = "Copied";
     isSuccess.value = true
+    emit("copied", {title: "Copied", subtitle: "Short link copied to clipboard", show: "True"})
     setTimeout(() => isSuccess.value = false, 2000)
     setTimeout(() => {
       buttonText.value = "Copy";
     }, 2000 )
+
   } catch (e) {
     console.error(e)
   }
