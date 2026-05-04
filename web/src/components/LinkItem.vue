@@ -1,14 +1,18 @@
 <template>
   <div class="recent-item">
     <div class="text-wrapper">
-      <a :href="short" class="url" target="_blank" rel="noopener">{{ short }}</a>
+      <a :href="short" class="url"  target="_blank" rel="noopener">{{ short }}</a>
       <p class="original-url">{{ original }}</p>
     </div>
-    <button class="copy-btn" @click="copyHandle()">Copy</button>
+    <button class="copy-btn" :class="{'success': isSuccess}" @click="copyHandle()">{{buttonText}}</button>
   </div>
 </template>
 
 <script setup lang="ts">
+import {ref} from "vue";
+const isSuccess = ref(false)
+const buttonText = ref<string>("Copy");
+
 const props = defineProps({
   original: String,
   short: String,
@@ -19,6 +23,12 @@ const copyHandle = async () => {
 
   try {
     await navigator.clipboard.writeText(props.short)
+    buttonText.value = "Copied";
+    isSuccess.value = true
+    setTimeout(() => isSuccess.value = false, 2000)
+    setTimeout(() => {
+      buttonText.value = "Copy";
+    }, 2000 )
   } catch (e) {
     console.error(e)
   }
@@ -90,5 +100,13 @@ const copyHandle = async () => {
   cursor: pointer;
   white-space: nowrap;
   transition: all 0.4s ease;
+}
+
+.copy-btn.success{
+  background-color: #4682B4;
+}
+
+.copy-btn:hover {
+  background-color: #323232;
 }
 </style>

@@ -6,7 +6,7 @@
         class="link-input"
         placeholder="https://github.com/iinfy/linkify"
     />
-    <button ref="shortBtn" class="short-btn" @click="hadleShortener">
+    <button ref="shortBtn" class="short-btn" :class="{'success': isSuccess}" @click="hadleShortener">
       {{ buttonText }}
     </button>
   </div>
@@ -18,6 +18,7 @@ import {computed, ref} from "vue";
   const linkInput = ref<HTMLInputElement | null>(null);
   const base_url = window.location.origin;
   const buttonText = ref<string>("Create");
+  const isSuccess = ref(false)
 
   const emit = defineEmits(['linkCreated']);
   const hadleShortener = async () => {
@@ -44,7 +45,9 @@ import {computed, ref} from "vue";
       }
 
       buttonText.value = "Created";
-      // addToRecentLink(base_url, data.url);
+      isSuccess.value = true
+      setTimeout(() => isSuccess.value = false, 2000)
+
       setTimeout(() => {
         buttonText.value = "Create";
       }, 2000 )
@@ -104,5 +107,9 @@ import {computed, ref} from "vue";
 
 .link-input-wrapper .short-btn:hover {
   background-color: #323232;
+}
+
+.short-btn.success {
+  background-color: green;
 }
 </style>
