@@ -87,6 +87,7 @@ const copyHandle = async () => {
   right: 8px;
   transform: translateY(-50%);
   height: 36px;
+  width: 5vw;
   padding: 0 14px;
   background-color: #383837;
   color: #e0e0dd;
@@ -103,6 +104,12 @@ const copyHandle = async () => {
 }
 
 .copy-btn.success{
+  background-color: #4682B4;
+  width: 5vw;
+}
+
+.copy-btn.success:hover {
+
   background-color: #4682B4;
 }
 

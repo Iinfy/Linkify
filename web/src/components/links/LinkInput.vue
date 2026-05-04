@@ -86,6 +86,7 @@ import {computed, ref} from "vue";
 
 .link-input-wrapper .short-btn {
   position: absolute;
+  width: 5vw;
   top: 50%;
   right: 8px;
   transform: translateY(-50%);
@@ -110,6 +111,12 @@ import {computed, ref} from "vue";
 }
 
 .short-btn.success {
+  width: 5vw;
   background-color: green;
 }
+.short-btn.success:hover {
+
+  background-color: green;
+}
+
 </style>
