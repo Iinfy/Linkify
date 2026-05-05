@@ -36,7 +36,9 @@ const { visible, title,subtitle, hasError } = useNotification()
   margin-bottom: 15px;
   background: #212121;
   height: 70px;
-  width: 20vw;
+  width: auto;
+  min-width: 280px;
+  max-width: 480px;
   color: white;
   border-radius: 20px;
 }
@@ -48,6 +50,7 @@ const { visible, title,subtitle, hasError } = useNotification()
   display: flex;
   flex-direction: column;
   margin-left: 45px;
+  font-size: clamp(11px, 2vw, 14px);
 }
 
 .notif-container h2 {
@@ -88,6 +91,60 @@ const { visible, title,subtitle, hasError } = useNotification()
 
 .slide-leave-to {
   transform: translateX(100%);
+}
+
+@media (min-width: 769px) {
+  .notif-container {
+    bottom: 0;
+    right: 0;
+    margin: 0 20px 20px 0;
+    width: auto;
+    min-width: 320px;
+    max-width: 420px;
+  }
+}
+
+
+@media (min-width: 481px) and (max-width: 768px) {
+  .slide-enter-from {
+    transform: translate(-50%, 100%);
+    opacity: 0;
+  }
+
+  .slide-leave-to {
+    transform: translate(-50%, 100%);
+    opacity: 0;
+  }
+
+
+
+
+
+  .notif-container {
+    bottom: 0;
+    left: 50%;
+    right: auto;
+    transform: translateX(-50%);
+    margin: 0 0 20px 0;
+    width: calc(100% - 40px);
+    min-width: auto;
+    max-width: 500px;
+  }
+}
+
+
+@media (max-width: 480px) {
+  .notif-container {
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: auto;
+    margin: 0;
+    width: 100%;
+    border-radius: 0 0 20px 20px;
+    max-width: 100%;
+    animation: slideDown 0.4s ease;
+  }
 }
 
 </style>

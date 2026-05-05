@@ -87,12 +87,12 @@ const copyHandle = async () => {
 
 .copy-btn {
   position: absolute;
-  top: 50%;
+
+  top: 13%;
   right: 8px;
-  transform: translateY(-50%);
-  height: 36px;
-  width: 5vw;
-  padding: 0 14px;
+
+  height: 44px;
+  padding: 0 20px;
   background-color: #383837;
   color: #e0e0dd;
   border: 1px solid #5c5c5a;
@@ -100,20 +100,18 @@ const copyHandle = async () => {
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: clamp(11px, 2vw, 14px);
   font-weight: 600;
   cursor: pointer;
   white-space: nowrap;
-  transition: all 0.4s ease;
+  width: clamp(70px, 8vw, 120px);
+  transition: background-color 0.5s ease, color 0.4s ease, border-color 0.4s ease;
 }
 
 .copy-btn.success{
   background-color: #4682B4;
-  width: 5vw;
 }
 
 .copy-btn.success:hover {
-
   background-color: #4682B4;
 }
 

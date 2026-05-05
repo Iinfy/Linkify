@@ -94,10 +94,10 @@ import {computed, ref} from "vue";
 
 .link-input-wrapper .short-btn {
   position: absolute;
-  width: 5vw;
-  top: 50%;
+
+  top: 13%;
   right: 8px;
-  transform: translateY(-50%);
+
   height: 44px;
   padding: 0 20px;
   background-color: #383837;
@@ -107,11 +107,11 @@ import {computed, ref} from "vue";
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: clamp(13px, 2vw, 15px);
   font-weight: 600;
   cursor: pointer;
   white-space: nowrap;
-  transition: all 0.4s ease;
+  width: clamp(70px, 8vw, 120px);
+  transition: background-color 0.5s ease, color 0.4s ease, border-color 0.4s ease;
 }
 
 .link-input-wrapper .short-btn:hover {
@@ -119,7 +119,7 @@ import {computed, ref} from "vue";
 }
 
 .short-btn.success {
-  width: 5vw;
+
   background-color: green;
 }
 .short-btn.success:hover {
