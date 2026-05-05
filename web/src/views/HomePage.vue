@@ -10,8 +10,8 @@
 </template>
 
 <script setup lang="ts">
-import type { Link } from "@/types/link.ts";
 import { ref } from "vue";
+import type { Link } from "@/types/link.ts";
 import AppLogo from "@/components/AppLogo.vue";
 import LinkInput from "@/components/links/LinkInput.vue";
 import RecentLinks from "@/components/links/RecentLinks.vue";
@@ -20,12 +20,9 @@ const links = ref<Link[]>([]);
 
 function addLink(link: Link) {
     links.value.unshift(link);
-
     if (links.value.length > 3) {
       links.value.pop()
     }
-
-
 }
 </script>
 

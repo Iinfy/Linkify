@@ -23,7 +23,7 @@ import {computed, ref} from "vue";
   const isSuccess = ref(false)
 
   const emit = defineEmits(['linkCreated']);
-  const hadleShortener = async () => {
+  async function hadleShortener(){
     let url = ""
     if (linkInput.value) {
       url = linkInput.value.value.trim()
