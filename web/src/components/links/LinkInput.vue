@@ -127,4 +127,24 @@ import {computed, ref} from "vue";
   background-color: green;
 }
 
+@media (max-width: 480px) {
+  .link-input-wrapper input {
+    height: 52px;
+    border-radius: 16px;
+    padding: 0 90px 0 14px;
+    font-size: 14px;
+  }
+
+  .link-input-wrapper input::placeholder {
+    font-size: 14px;
+  }
+
+  .link-input-wrapper .short-btn {
+    height: 38px;
+    padding: 0 14px;
+    font-size: 13px;
+    right: 6px;
+  }
+}
+
 </style>

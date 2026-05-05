@@ -118,4 +118,16 @@ const copyHandle = async () => {
 .copy-btn:hover {
   background-color: #323232;
 }
+
+
+@media (max-width: 480px) {
+  .copy-btn {
+    height: 38px;
+    margin-top: 3px;
+    font-size: 13px;
+    right: 6px;
+  }
+
+
+}
 </style>

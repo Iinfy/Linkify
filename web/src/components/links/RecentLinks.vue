@@ -40,4 +40,15 @@ defineProps({ links: Array as PropType<Link[]> });
     overflow: hidden;
     width: 100%;
 }
+
+@media (max-width: 480px) {
+  .recent-links {
+    margin-top: 20px;
+  }
+
+  .recent-links-list {
+    gap: 10px;
+    max-height: 180px;
+  }
+}
 </style>

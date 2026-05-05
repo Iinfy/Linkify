@@ -30,4 +30,11 @@
   border-radius: 4px;
   letter-spacing: 0.5px;
 }
+
+@media (max-width: 480px) {
+  .logo {
+    margin-bottom: 20px;
+  }
+
+}
 </style>
