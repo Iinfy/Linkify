@@ -29,7 +29,7 @@ import {computed, ref} from "vue";
       url = linkInput.value.value.trim()
     }
     try {
-      if (!url.startsWith('https://') || !url.startsWith('http://')) {
+      if (!url.startsWith('https://') && !url.startsWith('http://')) {
         show("Invalid input", "URL must start with https/http", true)
         console.log('Url is not https/http')
         return
