@@ -1,10 +1,9 @@
-FROM caddy:2-alpine
+FROM node:20-alpine AS builder
+WORKDIR /code
+COPY web/package*.json  ./
+RUN npm ci
+COPY web/. .
+RUN npm run build
 
-WORKDIR /app
-
-COPY web/ /app
-
-
-COPY web/Caddyfile /etc/caddy/Caddyfile
-
-EXPOSE 8080
+FROM devforth/spa-to-http:latest
+COPY --from=builder /code/dist/ .
