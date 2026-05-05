@@ -1,13 +1,14 @@
 <script setup lang="ts">
 import { useNotification } from '@/composables/useNotification'
-const { visible, title,subtitle } = useNotification()
+const { visible, title,subtitle, hasError } = useNotification()
 
 </script>
 
 <template>
   <transition name="slide">
-  <div v-if="visible" class="notif-container">
-    <img src="../assets/icons/check.png" class="check" alt="">
+  <div v-if="visible" class="notif-container" :class="{ 'border-red': hasError, 'border-white': !hasError }">
+    <img v-if="hasError" src="@/assets/icons/warning.png" class="check" alt="">
+    <img v-else src="@/assets/icons/check.png" class="check" alt="">
     <div class="text-group">
       <h2>{{title}}</h2>
       <p>{{subtitle}}</p>
@@ -33,15 +34,15 @@ const { visible, title,subtitle } = useNotification()
   padding: 10px 15px;
   margin-right: 15px;
   margin-bottom: 15px;
-  border: 1px solid #474745;
   background: #212121;
   height: 70px;
   width: 20vw;
   color: white;
   border-radius: 20px;
-
-
 }
+
+.border-red  { border: 1px solid red; }
+.border-white { border: 1px solid white; }
 
 .text-group {
   display: flex;

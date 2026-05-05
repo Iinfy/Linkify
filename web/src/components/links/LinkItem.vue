@@ -12,11 +12,9 @@
 import { useNotification } from '@/composables/useNotification'
 const { show } = useNotification()
 import {ref} from "vue";
-import type {NotificationData} from "@/types/notificationData.ts";
 
 const isSuccess = ref(false)
 const buttonText = ref<string>("Copy");
-const emit = defineEmits(['copied']);
 
 const props = defineProps({
   original: String,
@@ -34,7 +32,7 @@ const copyHandle = async () => {
     setTimeout(() => {
       buttonText.value = "Copy";
     }, 2000 )
-    show("Copied","Link copied to clipboard")
+    show("Copied","Link copied to clipboard", false)
   } catch (e) {
     console.error(e)
   }

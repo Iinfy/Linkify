@@ -12,6 +12,8 @@
   </div>
 </template>
 <script setup lang="ts">
+import { useNotification } from '@/composables/useNotification'
+const { show } = useNotification()
 import {computed, ref} from "vue";
 
   const shortBtn = document.querySelector('.short-btn');
@@ -27,6 +29,12 @@ import {computed, ref} from "vue";
       url = linkInput.value.value.trim()
     }
     try {
+      if (!url.startsWith('https://') || !url.startsWith('http://')) {
+        show("Invalid input", "URL must start with https/http", true)
+        console.log('Url is not https/http')
+        return
+      }
+
       const res = await fetch(`/slink`, {
         method: "POST",
         headers: {
@@ -37,12 +45,11 @@ import {computed, ref} from "vue";
 
       const data = await res.json()
       if (!res.ok) {
+        show("Error", "Internal server error", true)
         return
       }
 
-      if (!url.startsWith('https://') && !url.startsWith('http://')) {
-        console.log('Url is not https/http')
-      }
+
 
       buttonText.value = "Created";
       isSuccess.value = true
@@ -56,6 +63,7 @@ import {computed, ref} from "vue";
 
     } catch (error) {
       console.error('Error:', error)
+
   }
   }
 </script>
