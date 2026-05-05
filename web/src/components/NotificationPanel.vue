@@ -7,8 +7,8 @@ const { visible, title,subtitle, hasError } = useNotification()
 <template>
   <transition name="slide">
   <div v-if="visible" class="notif-container" :class="{ 'border-red': hasError, 'border-white': !hasError }">
-    <img v-if="hasError" src="@/assets/icons/warning.png" class="check" alt="">
-    <img v-else src="@/assets/icons/check.png" class="check" alt="">
+    <img v-if="hasError" src="@/assets/icons/warning.svg" class="check" alt="">
+    <img v-else src="@/assets/icons/check.svg" class="check" alt="">
     <div class="text-group">
       <h2>{{title}}</h2>
       <p>{{subtitle}}</p>
