@@ -19,7 +19,13 @@ import Notification from "@/components/NotificationPanel.vue";
 const links = ref<Link[]>([]);
 
 function addLink(link: Link) {
-    links.value.push(link);
+    links.value.unshift(link);
+
+    if (links.value.length > 3) {
+      links.value.pop()
+    }
+
+
 }
 </script>
 
