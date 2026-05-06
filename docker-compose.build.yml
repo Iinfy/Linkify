@@ -1,0 +1,14 @@
+services:
+  app:
+    image: ghcr.io/iinfy/linkify-back:latest
+    build:
+      context: .
+      dockerfile: app/Dockerfile
+      network: host
+
+  web:
+    image: ghcr.io/iinfy/linkify-web:latest
+    build:
+      context: .
+      dockerfile: web/Dockerfile
+      network: host
