@@ -18,7 +18,7 @@ func main() {
 	if corsHost == "" {
 		panic("CORS_HOST is not set")
 	}
-	db.ConnectDatabase(os.Getenv("POSTGRES_URL"))
+	db.InitPool(os.Getenv("POSTGRES_URL"))
 	db.PrepareDatabase()
 	handlers.StartServer(":8090")
 }

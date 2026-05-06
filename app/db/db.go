@@ -4,35 +4,28 @@ import (
 	"context"
 	"errors"
 	"fmt"
-	"log"
 	"time"
 
-	"github.com/jackc/pgx/v5"
 	"github.com/jackc/pgx/v5/pgconn"
+	"github.com/jackc/pgx/v5/pgxpool"
 )
 
-var conn *pgx.Conn
+var pool *pgxpool.Pool
 
-func ConnectDatabase(url string) {
-	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
-	defer cancel()
-
-	cconn, err := pgx.Connect(ctx, url)
-	if err != nil {
-		log.Fatal(err)
-	}
-	conn = cconn
-	fmt.Println("db connected")
+func InitPool(connString string) error {
+	var err error
+	pool, err = pgxpool.New(context.Background(), connString)
+	return err
 }
 
 func PrepareDatabase() {
-	_, err := conn.Exec(context.Background(), `CREATE TABLE IF NOT EXISTS urls(
+	_, err := pool.Exec(context.Background(), `CREATE TABLE IF NOT EXISTS urls(
 		hash text PRIMARY KEY,
 		url TEXT NOT NULL UNIQUE)`)
 	if err != nil {
 		fmt.Println(err)
 	}
-	_, err = conn.Exec(context.Background(), `CREATE TABLE IF NOT EXISTS stats(
+	_, err = pool.Exec(context.Background(), `CREATE TABLE IF NOT EXISTS stats(
 		hash TEXT,
 	 	clicked_at TIMESTAMP(3),
 		user_agent TEXT)`)
@@ -42,7 +35,7 @@ func PrepareDatabase() {
 }
 
 func AddUrl(url string, hash string) {
-	_, err := conn.Exec(context.Background(), `INSERT INTO urls VALUES ($1,$2)`, hash, url)
+	_, err := pool.Exec(context.Background(), `INSERT INTO urls VALUES ($1,$2)`, hash, url)
 	if err != nil {
 		var pgErr *pgconn.PgError
 		if errors.As(err, &pgErr) {
@@ -56,7 +49,7 @@ func AddUrl(url string, hash string) {
 
 func GetUrlByHash(hash string) string {
 	var url string
-	err := conn.QueryRow(context.Background(), "SELECT url FROM urls WHERE hash = $1", hash).Scan(&url)
+	err := pool.QueryRow(context.Background(), "SELECT url FROM urls WHERE hash = $1", hash).Scan(&url)
 	if err != nil {
 		fmt.Println(err)
 		return ""
@@ -65,7 +58,7 @@ func GetUrlByHash(hash string) string {
 }
 
 func RecordClick(hash string, userAgent string) {
-	_, err := conn.Exec(context.Background(), `INSERT INTO stats(hash,clicked_at,user_agent)
+	_, err := pool.Exec(context.Background(), `INSERT INTO stats(hash,clicked_at,user_agent)
 		VALUES ($1,$2,$3)`, hash, time.Now(), userAgent)
 	if err != nil {
 		fmt.Println(err)
@@ -74,7 +67,7 @@ func RecordClick(hash string, userAgent string) {
 
 func GetClicksByHash(hash string) int {
 	var clicks int
-	err := conn.QueryRow(context.Background(), "SELECT COUNT(*) FROM stats WHERE hash=$1", hash).Scan(&clicks)
+	err := pool.QueryRow(context.Background(), "SELECT COUNT(*) FROM stats WHERE hash=$1", hash).Scan(&clicks)
 	if err != nil {
 		fmt.Println(err)
 		return -1
