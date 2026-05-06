@@ -101,6 +101,7 @@ jobs:
           key: ${{ secrets.SERVER_SSH_KEY }}
           script: |
             cd Linkify
+            git pull origin main
             docker compose pull
             docker compose down
             docker compose up -d
