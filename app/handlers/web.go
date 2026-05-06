@@ -13,6 +13,9 @@ import (
 var router = gin.Default()
 
 func StartServer(serverPort string) {
+
+	gin.SetMode(gin.ReleaseMode)
+
 	rateLimiter := NewRateLimiter(parseRateLimit(os.Getenv("RATE_LIMIT")), time.Minute)
 
 	router.Use(cors.New(cors.Config{
