@@ -5,6 +5,7 @@
       <p class="original-url">{{ original }}</p>
     </div>
     <button class="copy-btn" :class="{'success': isSuccess}" @click="copyHandle()">{{buttonText}}</button>
+    <button class="qr-btn" @click="$emit('qr', short)">QR</button>
   </div>
 </template>
 
@@ -15,6 +16,7 @@ import {ref} from "vue";
 
 const isSuccess = ref(false)
 const buttonText = ref<string>("Copy");
+const emit = defineEmits(["qr"]);
 
 const props = defineProps({
   original: String,
@@ -105,6 +107,26 @@ const copyHandle = async () => {
   white-space: nowrap;
   width: clamp(70px, 8vw, 120px);
   transition: background-color 0.5s ease, color 0.4s ease, border-color 0.4s ease;
+}
+
+.qr-btn {
+  position: absolute;
+  top: 13%;
+  right: 90px;        /* ← сдвигаем влево от copy-btn */
+  height: 44px;
+  padding: 0 14px;
+  background-color: #383837;
+  color: #e0e0dd;
+  border: 1px solid #5c5c5a;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+  font-size: 13px;
+  transition: background-color 0.3s;
 }
 
 .copy-btn.success{
