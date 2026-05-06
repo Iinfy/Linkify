@@ -5,18 +5,19 @@
       <p class="original-url">{{ original }}</p>
     </div>
     <button class="copy-btn" :class="{'success': isSuccess}" @click="copyHandle()">{{buttonText}}</button>
-    <button class="qr-btn" @click="$emit('qr', short)">QR</button>
+    <button class="qr-btn" @click="showQR(props.short ?? 'not_found')">QR</button>
   </div>
 </template>
 
 <script setup lang="ts">
 import { useNotification } from '@/composables/useNotification'
+import {showQRCode} from "@/composables/showQRCode.ts";
 const { show } = useNotification()
+const {showQR} = showQRCode()
 import {ref} from "vue";
 
 const isSuccess = ref(false)
 const buttonText = ref<string>("Copy");
-const emit = defineEmits(["qr"]);
 
 const props = defineProps({
   original: String,

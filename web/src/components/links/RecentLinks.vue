@@ -4,7 +4,6 @@ import { type PropType, ref } from "vue";
 import type { Link } from "@/types/link.ts";
 
 defineProps({ links: Array as PropType<Link[]> });
-defineEmits(["qr"]);
 </script>
 
 <template>
@@ -15,7 +14,6 @@ defineEmits(["qr"]);
           v-for="link in links"
           :original="link.original"
           :short="link.short"
-          @qr = "$emit('qr', $event)"
       />
     </div>
   </div>

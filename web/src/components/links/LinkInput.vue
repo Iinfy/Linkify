@@ -14,7 +14,7 @@
 <script setup lang="ts">
 import { useNotification } from '@/composables/useNotification'
 const { show } = useNotification()
-import {computed, ref} from "vue";
+import {ref} from "vue";
 
 const shortBtn = document.querySelector('.short-btn');
 const linkInput = ref<HTMLInputElement | null>(null);
