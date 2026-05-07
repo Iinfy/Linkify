@@ -6,7 +6,11 @@
     </div>
 
     <button class="icon-btn copy-btn" :class="{'success': isSuccess}" @click="copyHandle()">
-      <img src="@/assets/icons/copy.svg" alt="QR code">
+      <img src="@/assets/icons/copy.svg" alt="Copy">
+    </button>
+
+    <button class="icon-btn stats-btn">
+      <img src="@/assets/icons/stats.svg" alt="stats">
     </button>
 
     <button class="icon-btn qr-btn" @click="showQR(props.short ?? 'not_found')">
@@ -50,7 +54,7 @@ const copyHandle = async () => {
 
 </script>
 
-<style>
+<style scoped>
 
 .recent-item {
   position: relative;
@@ -59,7 +63,7 @@ const copyHandle = async () => {
   background-color: #212121;
   border: 1px solid #474745;
   border-radius: 20px;
-  padding: 0 80px 0 16px;
+  padding: 0 16px;
   display: flex;
   align-items: center;
   overflow: hidden;
@@ -71,7 +75,7 @@ const copyHandle = async () => {
   flex-direction: column;
   min-width: 0;
   flex: 1;
-  padding-right: 8px;
+  padding-right: 120px;
 }
 
 .url {
@@ -95,47 +99,6 @@ const copyHandle = async () => {
   display: block;
 }
 
-.copy-btn {
-  position: absolute;
-  top: 13%;
-  right: 8px;
-  height: 25px;
-  padding: 0 20px;
-  background-color: #383837;
-  color: #e0e0dd;
-  border: 1px solid #5c5c5a;
-  border-radius: 10px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: 600;
-  cursor: pointer;
-  white-space: nowrap;
-  transition: background-color 0.5s ease, color 0.4s ease, border-color 0.4s ease;
-  width: 20px;
-}
-
-.qr-btn {
-  position: absolute;
-  top: 13%;
-  right: 45px;
-  height: 25px;
-  padding: 0 14px;
-  background-color: #383837;
-  color: #e0e0dd;
-  border: 1px solid #5c5c5a;
-  border-radius: 10px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: 600;
-  cursor: pointer;
-  white-space: nowrap;
-  font-size: 13px;
-  transition: background-color 0.3s;
-  width: 30px;
-}
-
 .icon-btn {
   position: absolute;
   top: 8px;
@@ -153,6 +116,10 @@ const copyHandle = async () => {
   transition: background-color 0.3s ease;
 }
 
+.icon-btn:hover {
+  background-color: #323232;
+}
+
 .icon-btn img {
   filter: invert(1);
   width: 14px;
@@ -160,23 +127,24 @@ const copyHandle = async () => {
   display: block;
 }
 
-.copy-btn.success{
+.copy-btn {
+  right: 8px;
+}
+
+.qr-btn {
+  right: 42px;
+}
+
+.stats-btn {
+  right: 76px;
+}
+
+.copy-btn.success {
   background-color: #4682B4;
+  border-color: #4682B4;
 }
 
 .copy-btn.success:hover {
   background-color: #4682B4;
 }
-
-.copy-btn:hover {
-  background-color: #323232;
-}
-
-
-
-
-
-
-
-
 </style>
