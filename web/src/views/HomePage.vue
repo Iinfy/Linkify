@@ -3,12 +3,12 @@
     <div class="main__section">
       <AppLogo />
       <LinkInput @linkCreated="addLink" />
-      <RecentLinks :links="links" @qr="qrUrl = $event; qrOpen = true" />
+      <RecentLinks :links="links" />
       <Notification/>
 
     </div>
   </div>
-  <QrModal v-if="qrOpen" :url="qrUrl" @close="qrOpen = false" />
+  <QrModal v-if="visible"/>
 </template>
 
 <script setup lang="ts">
@@ -19,9 +19,9 @@ import LinkInput from "@/components/links/LinkInput.vue";
 import RecentLinks from "@/components/links/RecentLinks.vue";
 import Notification from "@/components/NotificationPanel.vue";
 import QrModal from '@/components/QrModal.vue'
+import {showQRCode} from "@/composables/showQRCode.ts";
 const links = ref<Link[]>([]);
-const qrOpen = ref(false)
-const qrUrl = ref()
+const {visible} = showQRCode()
 
 function addLink(link: Link) {
   links.value.unshift(link);

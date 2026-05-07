@@ -4,19 +4,27 @@
       <a :href="short" class="url"  target="_blank" rel="noopener">{{ short }}</a>
       <p class="original-url">{{ original }}</p>
     </div>
-    <button class="copy-btn" :class="{'success': isSuccess}" @click="copyHandle()">{{buttonText}}</button>
-    <button class="qr-btn" @click="$emit('qr', short)">QR</button>
+
+    <button class="icon-btn copy-btn" :class="{'success': isSuccess}" @click="copyHandle()">
+      <img src="@/assets/icons/copy.svg" alt="QR code">
+    </button>
+
+    <button class="icon-btn qr-btn" @click="showQR(props.short ?? 'not_found')">
+      <img src="@/assets/icons/qr.svg" alt="QR code">
+    </button>
+
   </div>
 </template>
 
 <script setup lang="ts">
 import { useNotification } from '@/composables/useNotification'
+import {showQRCode} from "@/composables/showQRCode.ts";
 const { show } = useNotification()
+const {showQR} = showQRCode()
 import {ref} from "vue";
 
 const isSuccess = ref(false)
 const buttonText = ref<string>("Copy");
-const emit = defineEmits(["qr"]);
 
 const props = defineProps({
   original: String,
@@ -89,36 +97,34 @@ const copyHandle = async () => {
 
 .copy-btn {
   position: absolute;
-
   top: 13%;
   right: 8px;
-
-  height: 44px;
+  height: 25px;
   padding: 0 20px;
   background-color: #383837;
   color: #e0e0dd;
   border: 1px solid #5c5c5a;
-  border-radius: 16px;
+  border-radius: 10px;
   display: flex;
   align-items: center;
   justify-content: center;
   font-weight: 600;
   cursor: pointer;
   white-space: nowrap;
-  width: clamp(70px, 8vw, 120px);
   transition: background-color 0.5s ease, color 0.4s ease, border-color 0.4s ease;
+  width: 20px;
 }
 
 .qr-btn {
   position: absolute;
   top: 13%;
-  right: 90px;        /* ← сдвигаем влево от copy-btn */
-  height: 44px;
+  right: 45px;
+  height: 25px;
   padding: 0 14px;
   background-color: #383837;
   color: #e0e0dd;
   border: 1px solid #5c5c5a;
-  border-radius: 16px;
+  border-radius: 10px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -127,6 +133,31 @@ const copyHandle = async () => {
   white-space: nowrap;
   font-size: 13px;
   transition: background-color 0.3s;
+  width: 30px;
+}
+
+.icon-btn {
+  position: absolute;
+  top: 8px;
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  background-color: #383837;
+  color: #e0e0dd;
+  border: 1px solid #5c5c5a;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.icon-btn img {
+  filter: invert(1);
+  width: 14px;
+  height: 14px;
+  display: block;
 }
 
 .copy-btn.success{
@@ -142,14 +173,10 @@ const copyHandle = async () => {
 }
 
 
-@media (max-width: 480px) {
-  .copy-btn {
-    height: 38px;
-    margin-top: 3px;
-    font-size: 13px;
-    right: 6px;
-  }
 
 
-}
+
+
+
+
 </style>

@@ -1,5 +1,5 @@
 <template>
-  <div v-if="true" class="qr-container">
+  <div class="qr-container">
     <div class="qr-modal">
       <button class="close-btn" @click="close()">✕</button>
       <div class="qr-wrapper">
@@ -10,29 +10,24 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
+import {ref, onMounted} from 'vue'
 import QRCodeStyling from 'qr-code-styling'
+import {showQRCode} from "@/composables/showQRCode.ts";
+const { text, close } = showQRCode()
 
-const props = defineProps({
-  isOpen: Boolean,
-  url: String,
-})
 
-const emit = defineEmits(['close'])
 const qrContainer = ref<HTMLDivElement>()
 
-function close() {
-  emit('close')
-}
 
 onMounted(() => {
   if (!qrContainer.value) return
+  console.log("mounted")
 
   const qr = new QRCodeStyling({
     width: 300,
     height: 300,
     type: "svg",
-    data: props.url,
+    data: text.value,
     dotsOptions: {
       color: "white",
       type: "rounded"
