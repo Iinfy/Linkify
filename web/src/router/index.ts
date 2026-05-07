@@ -2,10 +2,13 @@ import { createRouter, createWebHistory } from "vue-router";
 import type { RouteRecordRaw } from "vue-router";
 import HomePage from "@/views/HomePage.vue";
 import NotFoundPage from "@/views/NotFoundPage.vue";
+import StatsPage from "@/views/StatsPage.vue";
 
 const routes: RouteRecordRaw[] = [
   { path: "/", component: HomePage },
-  {path: "/not_found", component: NotFoundPage },
+  { path: "/not_found", component: NotFoundPage },
+  { path: "/stats/:hash", component: StatsPage },
+  { path: '/:pathMatch(.*)*', redirect: '/' },
 
 ];
 
