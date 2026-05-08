@@ -4,10 +4,9 @@
       <a :href="short" class="url"  target="_blank" rel="noopener">{{ short }}</a>
       <p class="original-url">{{ original }}</p>
     </div>
-
     <button class="icon-btn copy-btn" :class="{'success': isSuccess}" @click="copyHandle()">
-      <img src="@/assets/icons/copy.svg" alt="Copy">
-    </button>
+    <img src="@/assets/icons/copy.svg" alt="Copy">
+  </button>
     <a :href="`/stats/${props.hash}`">
     <button class="icon-btn stats-btn">
       <img src="@/assets/icons/stats.svg" alt="stats">
@@ -16,7 +15,6 @@
     <button class="icon-btn qr-btn" @click="showQR(props.short ?? 'not_found')">
       <img src="@/assets/icons/qr.svg" alt="QR code">
     </button>
-
   </div>
 </template>
 
@@ -52,7 +50,6 @@ const copyHandle = async () => {
     console.error(e)
   }
 }
-
 </script>
 
 <style scoped>
