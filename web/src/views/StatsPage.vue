@@ -3,7 +3,9 @@ import LinkItem from "@/components/links/LinkItem.vue";
 import AppLogo from "@/components/AppLogo.vue";
 import StatsPanel from "@/components/StatsPanel.vue";
 import { useRoute } from "vue-router";
-
+import QrModal from "@/components/QrModal.vue";
+import {showQRCode} from "@/composables/showQRCode.ts";
+const {visible} = showQRCode()
 const baseUrl = window.location.origin;
 const route = useRoute();
 const hash = route.params.hash as string;
@@ -14,12 +16,13 @@ const hash = route.params.hash as string;
     <AppLogo />
     <div class="main__section">
       <div class="linkitem-container">
-        <LinkItem class="linkitem" :short="baseUrl + '/s/' + hash"></LinkItem>
+        <LinkItem class="linkitem" :short="baseUrl + '/s/' + hash" :hash="hash"></LinkItem>
       </div>
       <div class="stats-container">
         <StatsPanel :hash="hash" />
       </div>
     </div>
+    <QrModal v-if="visible"/>
   </div>
 </template>
 

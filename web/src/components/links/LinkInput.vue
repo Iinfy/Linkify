@@ -57,7 +57,7 @@ async function hadleShortener(){
       buttonText.value = "Create";
     }, 2000 )
 
-    emit("linkCreated", {original: url, short: base_url + "/s/" + data.url})
+    emit("linkCreated", {original: url, short: base_url + "/s/" + data.url, hash: data.url})
 
   } catch (error) {
     console.error('Error:', error)

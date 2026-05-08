@@ -1,4 +1,5 @@
 export interface Link {
     original: string,
-    short: string
+    short: string,
+    hash: string,
 }

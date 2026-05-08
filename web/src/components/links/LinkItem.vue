@@ -8,11 +8,11 @@
     <button class="icon-btn copy-btn" :class="{'success': isSuccess}" @click="copyHandle()">
       <img src="@/assets/icons/copy.svg" alt="Copy">
     </button>
-
+    <a :href="`/stats/${props.hash}`">
     <button class="icon-btn stats-btn">
       <img src="@/assets/icons/stats.svg" alt="stats">
     </button>
-
+    </a>
     <button class="icon-btn qr-btn" @click="showQR(props.short ?? 'not_found')">
       <img src="@/assets/icons/qr.svg" alt="QR code">
     </button>
@@ -33,6 +33,7 @@ const buttonText = ref<string>("Copy");
 const props = defineProps({
   original: String,
   short: String,
+  hash: String,
 })
 
 const copyHandle = async () => {

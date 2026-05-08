@@ -14,6 +14,7 @@ defineProps({ links: Array as PropType<Link[]> });
           v-for="link in links"
           :original="link.original"
           :short="link.short"
+          :hash="link.hash"
       />
     </div>
   </div>
