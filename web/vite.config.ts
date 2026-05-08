@@ -20,6 +20,10 @@ export default defineConfig({
         target: "http://localhost:3000",
         changeOrigin: true,
       },
+      "/gst/": {
+        target: "http://localhost:8090",
+        changeOrigin: true,
+      },
     },
   },
 });

@@ -2,12 +2,15 @@
     handle /s/* {
         reverse_proxy back:8090
     }
+    handle /gst/* {
+        reverse_proxy back:8090
+    }
     handle /slink* {
         reverse_proxy back:8090
     }
     handle /stats/* {
-            reverse_proxy web:8080
-        }
+        reverse_proxy web:8080
+    }
     handle /* {
         reverse_proxy web:8080
     }

@@ -49,4 +49,5 @@ __screenshots__/
 .vscode
 
 dist/
+.vite
 

@@ -5,11 +5,10 @@ import NotFoundPage from "@/views/NotFoundPage.vue";
 import StatsPage from "@/views/StatsPage.vue";
 
 const routes: RouteRecordRaw[] = [
-  { path: "/", component: HomePage },
   { path: "/not_found", component: NotFoundPage },
   { path: "/stats/:hash", component: StatsPage },
-  { path: '/:pathMatch(.*)*', redirect: '/' },
-
+  { path: "/", component: HomePage },
+  { path: "/:pathMatch(.*)*", component: NotFoundPage },
 ];
 
 const router = createRouter({

@@ -2,8 +2,11 @@
 import LinkItem from "@/components/links/LinkItem.vue";
 import AppLogo from "@/components/AppLogo.vue";
 import StatsPanel from "@/components/StatsPanel.vue";
+import { useRoute } from "vue-router";
 
 const baseUrl = window.location.origin;
+const route = useRoute();
+const hash = route.params.hash as string;
 </script>
 
 <template>
@@ -11,10 +14,10 @@ const baseUrl = window.location.origin;
     <AppLogo />
     <div class="main__section">
       <div class="linkitem-container">
-        <LinkItem class="linkitem" :short="baseUrl"></LinkItem>
+        <LinkItem class="linkitem" :short="baseUrl + '/s/' + hash"></LinkItem>
       </div>
       <div class="stats-container">
-        <StatsPanel class="statsPanel"></StatsPanel>
+        <StatsPanel :hash="hash" />
       </div>
     </div>
   </div>

@@ -37,7 +37,7 @@ func StartServer(serverPort string) {
 
 	router.POST("/slink", addLink)
 	router.GET("/s/:hash", goToLink)
-	router.GET("/short/:hash", getLinkStats)
+	router.GET("/gst/:hash", getLinkStats)
 
 	fmt.Println("Server started")
 	router.Run(serverPort)
