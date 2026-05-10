@@ -4,7 +4,7 @@
         ref="linkInput"
         type="text"
         class="link-input"
-        placeholder="https://github.com/iinfy/linkify"
+        placeholder="https://github.com/iinfy/linkify "
     />
     <button ref="shortBtn" class="short-btn" :class="{'success': isSuccess}" @click="hadleShortener">
       {{ buttonText }}
@@ -14,58 +14,56 @@
 <script setup lang="ts">
 import { useNotification } from '@/composables/useNotification'
 const { show } = useNotification()
-import {computed, ref} from "vue";
+import {ref} from "vue";
 
-  const shortBtn = document.querySelector('.short-btn');
-  const linkInput = ref<HTMLInputElement | null>(null);
-  const base_url = window.location.origin;
-  const buttonText = ref<string>("Create");
-  const isSuccess = ref(false)
+const shortBtn = document.querySelector('.short-btn');
+const linkInput = ref<HTMLInputElement | null>(null);
+const base_url = window.location.origin;
+const buttonText = ref<string>("Create");
+const isSuccess = ref(false)
 
-  const emit = defineEmits(['linkCreated']);
-  async function hadleShortener(){
-    let url = ""
-    if (linkInput.value) {
-      url = linkInput.value.value.trim()
+const emit = defineEmits(['linkCreated']);
+async function hadleShortener(){
+  let url = ""
+  if (linkInput.value) {
+    url = linkInput.value.value.trim()
+  }
+  try {
+    if (!url.startsWith('https://') && !url.startsWith('http://')) {
+      show("Invalid input", "URL must start with https/http", true)
+      console.log('Url is not https/http')
+      return
     }
-    try {
-      if (!url.startsWith('https://') && !url.startsWith('http://')) {
-        show("Invalid input", "URL must start with https/http", true)
-        console.log('Url is not https/http')
-        return
-      }
 
-      const res = await fetch(`/slink`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({url: url})
-      })
+    const res = await fetch(`/slink`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({url: url})
+    })
 
-      const data = await res.json()
-      if (!res.ok) {
-        show("Error", "Internal server error", true)
-        return
-      }
+    const data = await res.json()
+    if (!res.ok) {
+      show("Error", "Internal server error", true)
+      return
+    }
 
+    buttonText.value = "Created";
+    isSuccess.value = true
+    setTimeout(() => isSuccess.value = false, 2000)
 
+    setTimeout(() => {
+      buttonText.value = "Create";
+    }, 2000 )
 
-      buttonText.value = "Created";
-      isSuccess.value = true
-      setTimeout(() => isSuccess.value = false, 2000)
+    emit("linkCreated", {original: url, short: base_url + "/s/" + data.url, hash: data.url})
 
-      setTimeout(() => {
-        buttonText.value = "Create";
-      }, 2000 )
-
-      emit("linkCreated", {original: url, short: base_url + "/s/" + data.url})
-
-    } catch (error) {
-      console.error('Error:', error)
+  } catch (error) {
+    console.error('Error:', error)
 
   }
-  }
+}
 </script>
 
 <style scoped>
